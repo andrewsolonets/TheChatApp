@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { Messanger } from "../components/Messanger";
 
-import socket from "../components/socket";
 import { Starter } from "../components/Starter";
+import { ContactsProvider } from "../context/ContactsProvider";
 import { ConversationsProvider } from "../context/ConversationsProvider";
 import { SocketProvider } from "../context/SocketProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Home() {
-  const [nameSelected, setNameSelected] = useState();
+  const messanger = <Messanger />;
 
-  const messanger = (
-    <SocketProvider name={nameSelected}>
-      <ConversationsProvider>
-        <Messanger />
-      </ConversationsProvider>
-    </SocketProvider>
-  );
-
-  socket.on("connect_error", (err) => {
-    if (err.message === "invalid username") {
-      setNameSelected(false);
-    }
-  });
-  return <>{!nameSelected ? <Starter state={setNameSelected} /> : messanger}</>;
+  // socket.on("connect_error", (err) => {
+  //   if (err.message === "invalid username") {
+  //     setUser(null);
+  //   }
+  // });
+  return messanger;
+  // return <>{!user ? <Starter state={setUser} /> : messanger}</>;
 }

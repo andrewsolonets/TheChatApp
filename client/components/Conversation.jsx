@@ -26,8 +26,8 @@ export const Conversation = () => {
       </div>
 
       <div className="flex h-screen max-h-full flex-col items-center  gap-4  bg-slate-300  px-4 pb-4">
-        <div className=" h-4/5 w-full overflow-y-scroll  ">
-          <div className=" flex w-full flex-col gap-2">
+        <div className=" h-4/5 w-full overflow-y-auto  ">
+          <div className=" flex w-full flex-col gap-2 p-4">
             {messagesReceived.map((el, i) => {
               console.log(el);
               return (

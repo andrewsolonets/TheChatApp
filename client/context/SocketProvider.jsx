@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const SocketContext = React.createContext();
 
@@ -7,31 +8,53 @@ export const useSocket = () => {
   return useContext(SocketContext);
 };
 
-export const SocketProvider = ({ name: username, children }) => {
+export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState();
+  // const [user, setUser] = useLocalStorage("user");
+  const [user, setUser] = useState();
+  // let user = "hello";
+  // const setUser = (data) => {
+  //   console.log(data);
+  // };
 
   const URL = "http://localhost:3001";
 
-  useEffect(() => {
-    const newSocket = io(URL, { autoConnect: false });
-    newSocket.auth = { username };
-    newSocket.connect();
-    setSocket(newSocket);
-    console.log(newSocket);
+  // const newUser = async ({ username, email, password }) => {
+  //   //  const {email, username, password} = values
+  //   const { data } = await axios.post();
+  // };
 
-    // TEST ONLY!
-    newSocket.on("users", (users) => {
-      console.log(users);
-    });
+  // useEffect(() => {
+  //   if (user) {
+  //     const newSocket = io(URL, { autoConnect: false });
+  //     // newSocket.auth = { username };
+  //     // newSocket.connect();
+  //     newSocket.emit("add-user", user._id);
+  //     setSocket(newSocket);
+  //     console.log(newSocket);
 
-    newSocket.onAny((event, ...args) => {
-      console.log(event, args);
-    });
+  //     // TEST ONLY!
+  //     // newSocket.on("users", (users) => {
+  //     //   console.log(users);
+  //     // });
 
-    return () => newSocket.close();
-  }, [username]);
+  //     newSocket.onAny((event, ...args) => {
+  //       console.log(event, args);
+  //     });
+
+  //     // return () => newSocket.close();
+  //   }
+
+  //   // dependencies include only user id, may have to change to the whole user object
+  // }, [user]);
+
+  const value = {
+    setUser,
+    user,
+    socket,
+  };
 
   return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
   );
 };

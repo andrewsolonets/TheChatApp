@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div className="flex h-screen   ">
-        <Sidebar />
+        {/* <Sidebar /> */}
         {children}
       </div>
     </>
