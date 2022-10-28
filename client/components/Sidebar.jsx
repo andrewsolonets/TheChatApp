@@ -1,7 +1,12 @@
+import { useSocket } from "../context/SocketProvider";
+
 export const Sidebar = () => {
   const privateHandler = () => {
     return;
   };
+
+  const { contacts } = useSocket();
+  console.log(contacts);
 
   return (
     <div className="flex h-screen w-1/5 flex-col bg-slate-400">

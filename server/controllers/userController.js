@@ -7,12 +7,13 @@ module.exports.userToken = async (req, res, next) => {
   try {
     const username = req.user.username;
     const user = await User.findOne({ username });
-    console.log({ req });
     res.status(200).json({
       message: "success",
-      user: user,
+      data: user,
     });
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports.login = async (req, res, next) => {
@@ -27,8 +28,11 @@ module.exports.login = async (req, res, next) => {
     const token = utils.getToken(username);
     res.cookie("jwt", token, {
       httpOnly: true,
+
+      // signed: true,
       maxAge: Number(process.env.TOKEN_EXPIRES_IN) * 1000, //convert 2h to ms; maxAge uses miliseconds
     });
+
     delete user.password;
     return res.json({ status: true, user, token });
   } catch (ex) {
@@ -58,7 +62,7 @@ module.exports.register = async (req, res, next) => {
     });
 
     delete user.password;
-    return res.json({ status: true, user });
+    return res.json({ status: true, user, token });
   } catch (ex) {
     next(ex);
   }

@@ -1,18 +1,24 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthContext";
 import { useSocket } from "../context/SocketProvider";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { loginRoute } from "../utils/APIRoutes";
 
 export default function Login() {
   const router = useRouter();
-  const [user, setUser] = useLocalStorage("user");
+  const { login, auth } = useAuth();
   const [values, setValues] = useState({ username: "", password: "" });
 
+  useEffect(() => {
+    if (auth.user) {
+      router.replace("/");
+    }
+  }, []);
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -30,16 +36,13 @@ export default function Login() {
       console.log(values);
       const { username, password } = values;
       try {
-        const { data } = await axios.post(loginRoute, {
-          username,
-          password,
-        });
-        console.log(data);
+        const data = await login(username, password);
+        console.log(data.status);
         if (!data.status) {
           toast.error(data.msg, toastOptions);
         }
-        setUser(data.user);
-        console.log(user);
+
+        console.log(data);
       } catch (err) {
         toast.error(err.message, toastOptions);
       }
@@ -70,7 +73,7 @@ export default function Login() {
   return (
     <>
       <div className="flex h-screen items-center justify-center ">
-        <div className="flex h-fit w-4/5 items-center justify-center rounded-2xl bg-primary-dark lg:max-w-[50vw]">
+        <div className="flex h-fit w-4/5 items-center justify-center rounded-2xl bg-primary-dark drop-shadow-xl lg:max-w-[50vw]">
           <form
             className="flex w-full flex-col items-center gap-6 p-10 font-regular"
             onSubmit={handleSubmit}

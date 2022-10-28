@@ -2,28 +2,22 @@ import axios from "axios";
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { recieveMessageRoute, sendMessageRoute } from "../utils/APIRoutes";
-import { useContacts } from "./ContactsProvider";
 import { useSocket } from "./SocketProvider";
 
 const ConversationsContext = React.createContext();
 
-export function useConversations() {
-  return useContext(ConversationsContext);
-}
+export function ConversationsProvider({ children, auth }) {
+  const { socket, contacts } = useSocket();
+  const user = auth?.user?.data ? auth?.user?.data : undefined;
 
-export function ConversationsProvider({ children }) {
-  const { socket, user } = useSocket();
-
-  const [conversations, setConversations] = useLocalStorage(
-    "conversations",
-    []
-  );
+  const [conversations, setConversations] = useState([]);
   const [messagesReceived, setMessages] = useState([]);
-  const [recipients, setRecipients] = useState(null);
+  const [recipients, setRecipients] = useState([
+    { _id: "635bfcf7793265eb120493f9" },
+  ]);
 
   // get conversation index
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { contacts } = useContacts();
 
   function createConversation(recipients) {
     setConversations((prevConversations) => {
@@ -75,26 +69,25 @@ export function ConversationsProvider({ children }) {
     [setConversations]
   );
 
-  // useEffect(() => {
-  //   if (socket == null) return;
+  useEffect(() => {
+    if (socket == null) return;
 
-  //   socket.on("msg-recieve", addMessageToConversation);
+    socket.on("msg-recieve", addMessageToConversation);
 
-  //   // return () => socket.off("receive-message");
-  // }, [socket, addMessageToConversation]);
+    // return () => socket.off("receive-message");
+  }, [socket, addMessageToConversation]);
 
-  // useEffect(() => {
-  //   createConversation(recipients);
-  // }, [recipients]);
+  useEffect(() => {
+    createConversation(recipients);
+  }, [recipients]);
 
   // Get messages for current chat
-  // useEffect(() => {
-  //   getMessages();
-  // }, [recipients]);
+  useEffect(() => {
+    getMessages();
+  }, [recipients]);
 
   // get contacts, one contact = user object
   // change chat requires contact user object
-  //
 
   const sendMessage = async (msg) => {
     // socket
@@ -157,3 +150,6 @@ export function ConversationsProvider({ children }) {
     </ConversationsContext.Provider>
   );
 }
+
+export const useConversations = () => useContext(ConversationsContext);
+export const ConversationsConsumer = ConversationsContext.Consumer;

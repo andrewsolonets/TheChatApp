@@ -5,18 +5,30 @@ import { useRouter } from "next/router";
 import { useSocket } from "../context/SocketProvider";
 import { Sidebar } from "./Sidebar";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useAuth } from "../context/AuthContext";
 
 export const Messanger = () => {
-  // const { user } = data;
+  // const { contacts } = useContacts();
+  const { auth, logout } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (true) {
+    if (!auth.user) {
       router.replace("/login");
+    } else if (auth?.user?.data?.isAvatarImageSet) {
+      console.log(auth?.user?.data?.isAvatarImageSet);
+    } else {
+      router.replace("/setAvatar");
     }
-  }, []);
+  }, [auth.user]);
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <>
-      <div className="flex h-screen   ">
+      <div className="flex h-screen">
+        {/* <button onClick={handleLogout}>Logout</button> */}
+        <Sidebar />
+        <Conversation />
         {/* <Sidebar />
         <Conversation /> */}
         {/* <div className="flex flex-col gap-4">

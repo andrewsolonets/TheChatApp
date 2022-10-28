@@ -15,7 +15,7 @@ export const Conversation = () => {
     e.preventDefault();
     const message = messageRef.current.value;
     console.log(message);
-    sendMessage(["test"], message);
+    sendMessage(message);
     e.target.reset();
   };
 
