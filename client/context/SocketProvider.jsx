@@ -14,7 +14,7 @@ export const SocketProvider = (props) => {
   // console.log(auth.user.data, "THIS IS SOCKET");
   const user = auth?.user?.data ? auth?.user?.data : undefined;
 
-  const URL = "https://thechatapp.vercel.app";
+  const URL = "https://andrii-chat-app-server.herokuapp.com";
 
   // const newUser = async ({ username, email, password }) => {
   //   //  const {email, username, password} = values
