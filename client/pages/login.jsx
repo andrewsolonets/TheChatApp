@@ -41,7 +41,7 @@ export default function Login() {
         if (!data.status) {
           toast.error(data.msg, toastOptions);
         }
-
+        router.replace("/");
         console.log(data);
       } catch (err) {
         toast.error(err.message, toastOptions);
