@@ -6,10 +6,13 @@ import { useSocket } from "../context/SocketProvider";
 import { Sidebar } from "./Sidebar";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useAuth } from "../context/AuthContext";
+import { useConversations } from "../context/ConversationsProvider";
+import { Starter } from "./Starter";
 
 export const Messanger = () => {
   // const { contacts } = useContacts();
   const { auth, logout } = useAuth();
+  const { recipients } = useConversations();
   const router = useRouter();
   useEffect(() => {
     if (!auth.user) {
@@ -28,7 +31,7 @@ export const Messanger = () => {
       <div className="flex h-screen">
         {/* <button onClick={handleLogout}>Logout</button> */}
         <Sidebar />
-        <Conversation />
+        {recipients ? <Conversation /> : <Starter />}
         {/* <Sidebar />
         <Conversation /> */}
         {/* <div className="flex flex-col gap-4">

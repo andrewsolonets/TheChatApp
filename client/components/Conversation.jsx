@@ -1,10 +1,11 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useConversations } from "../context/ConversationsProvider";
 import { useChatScroll } from "../hooks/useChatScroll";
 
 export const Conversation = () => {
   const messageRef = useRef();
-  const { sendMessage, messagesReceived } = useConversations();
+
+  const { sendMessage, messagesReceived, recipients } = useConversations();
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true });
@@ -20,26 +21,30 @@ export const Conversation = () => {
   };
 
   return (
-    <div className="fixed bottom-0 top-0 right-0 w-4/5">
-      <div className="w-full bg-slate-400 py-3 pl-5 text-3xl text-white">
-        Roomname
+    <div className="fixed bottom-0 top-0 right-0 w-[75%] font-regular">
+      <div className="w-full bg-primary-dark py-3 pl-5 font-heading text-3xl capitalize text-white">
+        {recipients.username}
       </div>
 
-      <div className="flex h-screen max-h-full flex-col items-center  gap-4  bg-slate-300  px-4 pb-4">
+      <div className="flex h-screen max-h-full flex-col items-center  gap-4   px-4 pb-4">
         <div className=" h-4/5 w-full overflow-y-auto  ">
-          <div className=" flex w-full flex-col gap-2 p-4">
+          <div className=" flex w-full flex-col gap-4 p-4">
             {messagesReceived.map((el, i) => {
-              console.log(el);
+              // console.log(el);
               return (
                 <div
                   ref={setRef}
                   className={`flex ${
-                    el.fromMe && "self-end"
-                  } w-fit flex-col rounded-lg bg-slate-500 px-6 py-3 text-white`}
+                    el.fromSelf
+                      ? " self-end rounded-br-none bg-primary-dark"
+                      : "rounded-bl-none bg-secondary"
+                  } min-w-40 w-fit max-w-md flex-col gap-2 rounded-2xl  px-8 py-6 text-white`}
                   key={i}
                 >
-                  <h4 className="text-md font-bold">{el.sender}</h4>
-                  <p>{el.text}</p>
+                  <h4 className="text-md font-heading font-bold capitalize tracking-wider">
+                    {el.fromSelf ? "You" : recipients.username}
+                  </h4>
+                  <p>{el.message}</p>
                 </div>
               );
             })}
@@ -54,7 +59,7 @@ export const Conversation = () => {
             ref={messageRef}
             className="form-input w-full border-collapse  rounded-lg bg-amber-50 focus:outline-0"
           ></input>
-          <button className="absolute right-0  h-full rounded-sm bg-slate-700 px-4 py-2 text-white">
+          <button className="absolute right-0  h-full rounded-sm bg-primary-dark px-4 py-2 text-white">
             Send
           </button>
         </form>

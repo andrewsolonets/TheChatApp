@@ -12,7 +12,9 @@ function MyApp({ Component, pageProps, auth }) {
     <AuthProvider myAuth={auth}>
       <SocketProvider auth={auth}>
         <ConversationsProvider auth={auth}>
-          <Component {...pageProps} />
+          <div className=" h-screen w-screen bg-bgColor">
+            <Component {...pageProps} />
+          </div>
         </ConversationsProvider>
       </SocketProvider>
     </AuthProvider>
