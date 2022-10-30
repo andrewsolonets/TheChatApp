@@ -1,4 +1,4 @@
-export const host = process.env.HOST;
+export const host = process.env.NEXT_PUBLIC_HOST;
 export const loginRoute = `${host}/api/auth/login`;
 export const currentUserRoute = `${host}/api/auth/token`;
 export const registerRoute = `${host}/api/auth/register`;
