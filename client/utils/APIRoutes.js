@@ -1,4 +1,4 @@
-export const host = "https://andrii-chat-app-server.herokuapp.com/";
+export const host = "https://andrii-chat-app-server.herokuapp.com";
 export const loginRoute = `${host}/api/auth/login`;
 export const currentUserRoute = `${host}/api/auth/token`;
 export const registerRoute = `${host}/api/auth/register`;
