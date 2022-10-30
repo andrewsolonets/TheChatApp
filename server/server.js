@@ -9,7 +9,7 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -33,7 +33,7 @@ const server = app.listen(process.env.PORT, () =>
 );
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN,
     credentials: true,
   },
 });
