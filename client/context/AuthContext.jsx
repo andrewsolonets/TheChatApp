@@ -23,7 +23,7 @@ const toastOptions = {
 const AuthContext = createContext();
 
 export const getUser = async (ctx) => {
-  console.log(ctx);
+  // console.log(ctx);
   return await axios
     .get(currentUserRoute, {
       headers: ctx?.req?.headers?.cookie
@@ -60,7 +60,7 @@ export const AuthProvider = (props) => {
         console.log(data.data.token);
         Cookies.set("jwt", data.data.token);
         console.log("user signed in");
-        router.replace("/");
+        router.push("/");
         return data.data;
         // router.replace("/");
       })
@@ -82,7 +82,7 @@ export const AuthProvider = (props) => {
       // REDO!
       console.log(data);
       Cookies.set("jwt", data.token);
-      router.replace("/setAvatar");
+      router.push("/setAvatar");
       // set User
     }
   };
@@ -93,7 +93,7 @@ export const AuthProvider = (props) => {
       .then((res) => {
         console.log(res);
         Cookies.remove("jwt");
-        router.replace("/");
+        router.push("/");
         console.log("user logged out");
       })
       .catch((err) => {

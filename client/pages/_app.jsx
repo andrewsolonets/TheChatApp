@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import { SocketProvider } from "../context/SocketProvider";
 import { ConversationsProvider } from "../context/ConversationsProvider";
 
-function MyApp({ Component, pageProps, auth }) {
+function MyApp({ Component, pageProps: { auth, ...pageProps } }) {
   console.log(auth);
   return (
     <AuthProvider myAuth={auth}>
@@ -21,15 +21,13 @@ function MyApp({ Component, pageProps, auth }) {
   );
 }
 
-MyApp.getInitialProps = async (appContext) => {
-  // const allCookies = cookies(appContext.req);
-  // console.log("these are cookies", allCookies);
-  const appProps = await App.getInitialProps(appContext);
-  const auth = await getUser(appContext.ctx);
-  return { ...appProps, auth: auth };
-
-  
-};
+// MyApp.getInitialProps = async (appContext) => {
+//   // const allCookies = cookies(appContext.req);
+//   // console.log("these are cookies", allCookies);
+//   const appProps = await App.getInitialProps(appContext);
+//   const auth = await getUser(appContext.ctx);
+//   return { ...appProps, auth: auth };
+// };
 
 // export async function getServerSideProps(context) {
 //   const allCookies = cookies(appContext);

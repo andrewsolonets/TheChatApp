@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { getUser, useAuth } from "../context/AuthContext";
 
 export default function Register() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export default function Register() {
       const { email, username, password } = values;
       const res = register(username, email, password);
       console.log(res);
-      router.push("/setAvatar", { shallow: true });
+      router.push("/setAvatar");
     }
   };
 
@@ -122,4 +122,13 @@ export default function Register() {
       <ToastContainer />
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const auth = await getUser(ctx);
+  console.log("MESSANGER", auth);
+  /*...stuff + getting "session/token"*/
+  return {
+    props: { auth },
+  };
 }

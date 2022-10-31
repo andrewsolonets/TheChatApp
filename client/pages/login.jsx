@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAuth } from "../context/AuthContext";
+import { getUser, useAuth } from "../context/AuthContext";
 import { useSocket } from "../context/SocketProvider";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { loginRoute } from "../utils/APIRoutes";
@@ -16,7 +16,7 @@ export default function Login() {
 
   useEffect(() => {
     if (auth.user) {
-      router.push("/", { shallow: true });
+      router.push("/");
     }
   }, []);
   const toastOptions = {
@@ -41,7 +41,7 @@ export default function Login() {
         if (!data.status) {
           toast.error(data.msg, toastOptions);
         }
-        router.push("/", { shallow: true });
+        router.push("/");
         console.log(data);
       } catch (err) {
         toast.error(err.message, toastOptions);
@@ -122,4 +122,13 @@ export default function Login() {
       <ToastContainer />
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const auth = await getUser(ctx);
+  console.log("MESSANGER", auth);
+  /*...stuff + getting "session/token"*/
+  return {
+    props: { auth },
+  };
 }

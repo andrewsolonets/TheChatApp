@@ -16,11 +16,11 @@ export const Messanger = () => {
   const router = useRouter();
   useEffect(() => {
     if (!auth.user) {
-      router.push("/login", { shallow: true });
+      router.push("/login");
     } else if (auth?.user?.data?.isAvatarImageSet) {
       console.log(auth?.user?.data?.isAvatarImageSet);
     } else {
-      router.push("/setAvatar", { shallow: true });
+      router.push("/setAvatar");
     }
   }, [auth.user]);
   const handleLogout = () => {

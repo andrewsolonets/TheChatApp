@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAvatars } from "../hooks/useAvatars";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
+import { getUser, useAuth } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
 
 export default function SetAvatar() {
@@ -13,7 +13,7 @@ export default function SetAvatar() {
 
   const handleSetImg = async () => {
     const data = await chooseImg(avatars, selectedAvatar);
-    router.replace("/");
+    router.push("/");
 
     // router.replace("/");
   };
@@ -21,9 +21,9 @@ export default function SetAvatar() {
 
   useEffect(() => {
     if (!auth.user) {
-      router.replace("/login");
+      router.push("/login");
     } else if (auth?.user?.data?.isAvatarImageSet) {
-      router.replace("/");
+      router.push("/");
     }
   }, [auth.user]);
 
@@ -72,4 +72,13 @@ export default function SetAvatar() {
       <ToastContainer />
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const auth = await getUser(ctx);
+  console.log("MESSANGER", auth);
+  /*...stuff + getting "session/token"*/
+  return {
+    props: { auth },
+  };
 }
