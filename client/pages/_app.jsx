@@ -27,6 +27,8 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const auth = await getUser(appContext.ctx);
   return { ...appProps, auth: auth };
+
+  
 };
 
 // export async function getServerSideProps(context) {

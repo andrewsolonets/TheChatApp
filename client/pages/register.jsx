@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
+  const router = useRouter();
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -29,6 +30,7 @@ export default function Register() {
       const { email, username, password } = values;
       const res = register(username, email, password);
       console.log(res);
+      router.push("/setAvatar", { shallow: true });
     }
   };
 

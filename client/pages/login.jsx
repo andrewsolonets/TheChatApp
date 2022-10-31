@@ -16,7 +16,7 @@ export default function Login() {
 
   useEffect(() => {
     if (auth.user) {
-      router.replace("/");
+      router.push("/", { shallow: true });
     }
   }, []);
   const toastOptions = {
@@ -41,7 +41,7 @@ export default function Login() {
         if (!data.status) {
           toast.error(data.msg, toastOptions);
         }
-        router.replace("/");
+        router.push("/", { shallow: true });
         console.log(data);
       } catch (err) {
         toast.error(err.message, toastOptions);
