@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { LoginForm } from "../components/LoginForm";
+import { LoginForm } from "../components/Forms/LoginForm";
 import { getUser, useAuth } from "../context/AuthContext";
 
 import { toastOptions, validateFormLogin } from "../utils/helpers";

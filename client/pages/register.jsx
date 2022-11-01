@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { getUser, useAuth } from "../context/AuthContext";
 import { handleValidationRegister } from "../utils/helpers";
-import { RegisterForm } from "../components/RegisterForms";
+import { RegisterForm } from "../components/Forms/RegisterForms";
 
 export default function Register() {
   const router = useRouter();

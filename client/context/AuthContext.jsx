@@ -97,7 +97,6 @@ export const AuthProvider = (props) => {
     if (selectedAvatar === undefined) {
       toast.error("Please select an avatar", toastOptions);
     } else {
-      console.log("FIRST");
       try {
         const { data } = await axios.post(
           `${setAvatarRoute}/${auth.user.data._id}`,

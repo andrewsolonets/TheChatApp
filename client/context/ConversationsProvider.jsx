@@ -65,10 +65,6 @@ export function ConversationsProvider({ children, auth }) {
 
     // Current conversation messages
     addMessageToConversation(msg, true);
-    // const msgs = [...messages];
-
-    // msgs.push({ fromSelf: true, message: msg });
-    // setMessages(msgs);
   };
 
   const value = {
