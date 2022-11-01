@@ -1,13 +1,28 @@
 import { useSocket } from "../context/SocketProvider";
 import Image from "next/image";
 import { useConversations } from "../context/ConversationsProvider";
+import { useState } from "react";
 
 export const Sidebar = () => {
   const { contacts } = useSocket();
+  const [chats, setChats] = useState({ query: "", chats: contacts });
   const { selectedIndex, setSelectedIndex, setRecipients } = useConversations();
   const changeCurrentChat = (index, contact) => {
     setSelectedIndex(index);
     setRecipients(contact);
+  };
+
+  const searchHandler = (e) => {
+    const results = contacts.filter((contact) => {
+      if (e.target.value === "") return contacts;
+      return contact.username
+        .toLowerCase()
+        .includes(e.target.value.toLowerCase());
+    });
+    setChats({
+      query: e.target.value,
+      chats: results,
+    });
   };
 
   return (
@@ -27,11 +42,13 @@ export const Sidebar = () => {
       <div className="w-full bg-primary px-5 py-4 ">
         <input
           type="search"
+          onChange={searchHandler}
+          value={chats.query}
           className=" w-full rounded-full border-none bg-primary-dark text-white placeholder-gray-300 drop-shadow-sm"
         />
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto py-5 px-2">
-        {contacts.map((contact, index) => {
+        {chats.chats.map((contact, index) => {
           return (
             <div
               key={contact._id}

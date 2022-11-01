@@ -3,7 +3,8 @@ import LogoutIcon from "../assets/LogoutIcon";
 import SendIcon from "../assets/SendIcon";
 import { useAuth } from "../context/AuthContext";
 import { useConversations } from "../context/ConversationsProvider";
-import EmojiPicker from "emoji-picker-react";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import EmojiIcon from "../assets/EmojiIcon";
 
 export const Conversation = () => {
@@ -22,14 +23,19 @@ export const Conversation = () => {
     logout();
   };
 
+  const outsideHandler = (e) => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
   const emojiBtnHandler = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
   const emojiAddHandler = (emojiObject) => {
     let msg = message;
-    msg = msg += emojiObject.emoji;
+    msg = msg += emojiObject.native;
     setMessage(msg);
+    setShowEmojiPicker(false);
   };
 
   const sendHandler = (e) => {
@@ -79,17 +85,22 @@ export const Conversation = () => {
           </div>
         </div>
         <div className="relative flex w-full basis-11 justify-between gap-2 px-4">
+          {showEmojiPicker && (
+            <div className="absolute bottom-12">
+              <Picker
+                data={data}
+                onEmojiSelect={emojiAddHandler}
+                theme={"light"}
+              />
+            </div>
+          )}
           <button
-            className="absolute h-full rounded-xl   bg-white  pl-3 pr-2 text-white"
+            className="absolute h-full rounded-xl pl-3 pr-2 text-white"
             onClick={emojiBtnHandler}
           >
-            {showEmojiPicker && (
-              <div className="absolute bottom-12">
-                <EmojiPicker onEmojiClick={emojiAddHandler} />
-              </div>
-            )}
             <EmojiIcon className="h-5 w-5 fill-primary" />
           </button>
+
           <form onSubmit={sendHandler} className="flex w-full justify-between">
             <input
               type="text"
@@ -97,7 +108,7 @@ export const Conversation = () => {
               value={message}
               className="form-input h-11 w-[94%] rounded-xl border-0 bg-white pl-10 focus:outline-0"
             ></input>
-            <button className="  h-full  rounded-xl  bg-white  pl-3 pr-2 text-white">
+            <button className="h-full  rounded-xl  bg-white  pl-3 pr-2 text-white">
               <SendIcon className="h-7 w-7 fill-primary" />
             </button>
           </form>
