@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -7,8 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["Roboto"],
-        regular: ["Inter"],
+        heading: ["Roboto", "sans-serif", ...defaultTheme.fontFamily.sans],
+        regular: ["Inter", "sans-serif", ...defaultTheme.fontFamily.sans],
       },
 
       colors: {

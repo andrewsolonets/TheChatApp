@@ -26,7 +26,6 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  /*...stuff + getting "session/token"*/
   return {
     props: { auth },
   };
