@@ -10,35 +10,18 @@ import { useConversations } from "../context/ConversationsProvider";
 import { Starter } from "./Starter";
 
 export const Messanger = () => {
-  // const { contacts } = useContacts();
   const { auth, logout } = useAuth();
   const { recipients } = useConversations();
   const router = useRouter();
-  useEffect(() => {
-    if (!auth.user) {
-      router.push("/login");
-    } else if (auth?.user?.data?.isAvatarImageSet) {
-      console.log(auth?.user?.data?.isAvatarImageSet);
-    } else {
-      router.push("/setAvatar");
-    }
-  }, [auth.user]);
+
   const handleLogout = () => {
     logout();
   };
   return (
     <>
       <div className="flex h-screen">
-        {/* <button onClick={handleLogout}>Logout</button> */}
         <Sidebar />
         {recipients ? <Conversation /> : <Starter />}
-        {/* <Sidebar />
-        <Conversation /> */}
-        {/* <div className="flex flex-col gap-4">
-          {users.map((el, i) => (
-            <span key={i}>{el.username}</span>
-          ))}
-        </div> */}
       </div>
     </>
   );

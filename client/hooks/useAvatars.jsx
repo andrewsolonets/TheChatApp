@@ -14,20 +14,16 @@ export const useAvatars = () => {
         const image = await axios.get(
           `${api}/${Math.round(Math.random() * 1000)}`
         );
-        console.log(image);
-
         const buffer = Buffer.from(image.data);
-        console.log(buffer);
         data.push(buffer.toString("base64"));
-        console.log(data);
       } catch (err) {
         console.error(err);
       }
     }
     setAvatars(data);
     setIsLoading(false);
-    
-    return { avatars, isLoading };
+
+    return { avatars, isLoading, data };
   };
 
   useEffect(() => {

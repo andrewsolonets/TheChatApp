@@ -14,11 +14,11 @@ export default function Login() {
   const { login, auth } = useAuth();
   const [values, setValues] = useState({ username: "", password: "" });
 
-  useEffect(() => {
-    if (auth.user) {
-      router.push("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (auth.user) {
+  //     router.push("/");
+  //   }
+  // }, []);
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -126,8 +126,15 @@ export default function Login() {
 
 export async function getServerSideProps(ctx) {
   const auth = await getUser(ctx);
-  console.log("MESSANGER", auth);
-  /*...stuff + getting "session/token"*/
+  if (auth.user) {
+    console.log("redirect on the way");
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   return {
     props: { auth },
   };

@@ -21,22 +21,4 @@ function MyApp({ Component, pageProps: { auth, ...pageProps } }) {
   );
 }
 
-// MyApp.getInitialProps = async (appContext) => {
-//   // const allCookies = cookies(appContext.req);
-//   // console.log("these are cookies", allCookies);
-//   const appProps = await App.getInitialProps(appContext);
-//   const auth = await getUser(appContext.ctx);
-//   return { ...appProps, auth: auth };
-// };
-
-// export async function getServerSideProps(context) {
-//   const allCookies = cookies(appContext);
-//   console.log("these are cookies", allCookies);
-
-//   const appProps = await App.getInitialProps(context);
-//   return {
-//     props: { ...appProps, auth: auth }, // will be passed to the page component as props
-//   };
-// }
-
 export default MyApp;

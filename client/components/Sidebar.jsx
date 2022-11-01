@@ -10,15 +10,18 @@ export const Sidebar = () => {
     setRecipients(contact);
   };
 
-  // console.log(contacts);
-
   return (
     <div className="flex h-screen w-[25%] flex-col bg-primary font-regular">
-      <div className="flex h-[5.448rem] flex-col justify-center gap-4 bg-primary-dark px-5 ">
-        <input
+      <div className="flex h-16 flex-col justify-center gap-4 bg-primary-dark px-5 ">
+        <div className="flex items-center justify-center rounded-xl bg-primary px-4 py-2">
+          <h2 className="text- font-regular text-xl font-bold text-white">
+            THECHATAPP
+          </h2>
+        </div>
+        {/* <input
           type="search"
           className=" rounded-full border-none bg-primary text-white placeholder-gray-300 drop-shadow-sm"
-        />
+        /> */}
         {/* <div className="flex justify-between ">
           <div className="p-3 text-xl text-white">Private</div>
           <div className="p-3 text-xl text-white">Private</div>

@@ -57,9 +57,7 @@ export const AuthProvider = (props) => {
         withCredentials: true,
       })
       .then((data) => {
-        console.log(data.data.token);
         Cookies.set("jwt", data.data.token);
-        console.log("user signed in");
         router.push("/");
         return data.data;
         // router.replace("/");

@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useRef } from "react";
+import LogoutIcon from "../assets/LogoutIcon";
+import SendIcon from "../assets/SendIcon";
+import { useAuth } from "../context/AuthContext";
 import { useConversations } from "../context/ConversationsProvider";
 import { useChatScroll } from "../hooks/useChatScroll";
 
 export const Conversation = () => {
   const messageRef = useRef();
+  const { logout } = useAuth();
 
   const { sendMessage, messagesReceived, recipients } = useConversations();
   const setRef = useCallback((node) => {
@@ -11,6 +15,9 @@ export const Conversation = () => {
       node.scrollIntoView({ smooth: true });
     }
   }, []);
+  const handleLogout = () => {
+    logout();
+  };
 
   const sendHandler = (e) => {
     e.preventDefault();
@@ -22,8 +29,16 @@ export const Conversation = () => {
 
   return (
     <div className="fixed bottom-0 top-0 right-0 w-[75%] font-regular">
-      <div className="w-full bg-primary-dark py-3 pl-5 font-heading text-3xl capitalize text-white">
-        {recipients.username}
+      <div className="flex h-16 w-full items-center justify-between bg-primary-dark py-3 px-5  text-white">
+        <h2 className="font-heading text-3xl capitalize">
+          {recipients.username}
+        </h2>
+        <button
+          onClick={handleLogout}
+          className="flex items-center justify-center rounded-xl bg-primary  p-2"
+        >
+          <LogoutIcon className="h-7 w-7  " />
+        </button>
       </div>
 
       <div className="flex h-screen max-h-full flex-col items-center  gap-4   px-4 pb-4">
@@ -51,16 +66,16 @@ export const Conversation = () => {
           </div>
         </div>
         <form
-          className=" relative flex w-full basis-11 justify-end"
+          className=" relative flex w-full basis-11 justify-between px-4"
           onSubmit={sendHandler}
         >
           <input
             type="text"
             ref={messageRef}
-            className="form-input w-full border-collapse  rounded-lg bg-amber-50 focus:outline-0"
+            className="form-input h-11 w-[94%] rounded-xl border-0  bg-white focus:outline-0"
           ></input>
-          <button className="absolute right-0  h-full rounded-sm bg-primary-dark px-4 py-2 text-white">
-            Send
+          <button className="  h-full  rounded-xl  bg-white  pl-3 pr-2 text-white">
+            <SendIcon className="h-7 w-7 fill-primary" />
           </button>
         </form>
       </div>
