@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import React, { useContext, useState, useEffect } from "react";
 import { recieveMessageRoute, sendMessageRoute } from "../utils/APIRoutes";
 import { useSocket } from "./SocketProvider";
 
@@ -20,14 +19,12 @@ export function ConversationsProvider({ children, auth }) {
     const { data } = await axios.post(recieveMessageRoute, {
       from: user?._id,
       to: recipients?._id,
-      // to: recipients.map((r) => r._id),
     });
     setMessages(data);
   };
 
   const addMessageToConversation = (msg, self) => {
     if (messagesReceived) {
-      // console.log(messagesReceived);
       console.log("addMessageToConversation");
       const newMessage = { fromSelf: self, message: msg };
       const messagesNew = [...messagesReceived];
@@ -73,11 +70,6 @@ export function ConversationsProvider({ children, auth }) {
     // msgs.push({ fromSelf: true, message: msg });
     // setMessages(msgs);
   };
-
-  // const addMessageToConversation = useCallback(
-  //   ({ recipients, text, sender }) => {},
-  //   []
-  // );
 
   const value = {
     recipients,

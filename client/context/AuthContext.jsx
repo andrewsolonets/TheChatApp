@@ -11,14 +11,7 @@ import {
 } from "../utils/APIRoutes";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-
-const toastOptions = {
-  position: "bottom-right",
-  autoClose: 8000,
-  pauseOnHover: true,
-  draggable: true,
-  theme: "dark",
-};
+import { toastOptions } from "../utils/helpers";
 
 const AuthContext = createContext();
 

@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { Buffer } from "buffer";
 import { useAvatars } from "../hooks/useAvatars";
 import { useRouter } from "next/router";
 import { getUser, useAuth } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
-import axios from "axios";
 
 export default function SetAvatar() {
   const { chooseImg } = useAuth();
