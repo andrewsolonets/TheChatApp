@@ -26,7 +26,9 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen w-[25%] flex-col bg-primary font-regular">
+    <div
+      className={`flex h-screen w-full flex-col bg-primary font-regular md:flex md:w-[35%] lg:w-[25%]`}
+    >
       <div className="flex h-16 flex-col justify-center gap-4 bg-primary-dark px-5">
         <div className="flex items-center justify-center rounded-xl bg-primary px-4 py-2">
           <h2 className="text- font-regular  text-xl font-bold text-white">
@@ -48,7 +50,7 @@ export const Sidebar = () => {
         />
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto py-5 px-2">
-        {chats.chats.map((contact, index) => {
+        {(chats.query ? chats.chats : contacts).map((contact, index) => {
           return (
             <div
               key={contact._id}
@@ -57,15 +59,14 @@ export const Sidebar = () => {
               }`}
               onClick={() => changeCurrentChat(index, contact)}
             >
-              <div className="relative h-16 w-16">
+              <div className="relative h-16 w-16 ">
                 <Image
-                  unoptimized
                   src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                  alt=""
+                  alt="avatar"
                   layout="fill"
                 />
               </div>
-              <div className="justify-end text-xl text-white">
+              <div className="max-w-[60%] overflow-x-auto text-xl text-white selection:justify-end">
                 <h3>{contact.username}</h3>
               </div>
             </div>

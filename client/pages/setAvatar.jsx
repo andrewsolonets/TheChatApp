@@ -22,11 +22,11 @@ export default function SetAvatar() {
   return (
     <>
       <div className="flex h-screen items-center justify-center ">
-        <div className="flex h-fit w-4/5 flex-col items-center justify-center gap-10 rounded-2xl bg-primary-dark p-8 drop-shadow-xl lg:max-w-[50vw]">
-          <h2 className="font-heading text-4xl font-medium text-white">
+        <div className="flex h-fit w-[92%] flex-col items-center justify-center gap-10 rounded-2xl bg-primary-dark p-8 drop-shadow-xl lg:w-4/5 lg:max-w-[50vw]">
+          <h2 className="text-center font-heading text-2xl font-medium text-white md:text-4xl">
             Pick your profile picture
           </h2>
-          <div className="flex w-full max-w-xl justify-between ">
+          <div className="flex max-w-xl flex-col justify-between gap-2 sm:w-full sm:flex-row ">
             {isLoading && (
               <div className="flex w-full items-center justify-center">
                 <BeatLoader loading={isLoading} color={"#F9A620"} size={20} />
@@ -35,7 +35,7 @@ export default function SetAvatar() {
             {avatars.map((el, index) => {
               return (
                 <div
-                  className={`relative h-24 w-24 rounded-full bg-slate-400 ${
+                  className={` relative h-24 w-24 rounded-full  ${
                     selectedAvatar === index &&
                     "outline  outline-8  outline-secondary"
                   }`}

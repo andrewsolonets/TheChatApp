@@ -6,13 +6,15 @@ import { useConversations } from "../context/ConversationsProvider";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import EmojiIcon from "../assets/EmojiIcon";
+import BackIcon from "../assets/BackIcon";
 
 export const Conversation = () => {
   const [message, setMessage] = useState("");
 
   const { logout } = useAuth();
 
-  const { sendMessage, messagesReceived, recipients } = useConversations();
+  const { sendMessage, messagesReceived, setRecipients, recipients } =
+    useConversations();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const setRef = useCallback((node) => {
     if (node) {
@@ -23,8 +25,8 @@ export const Conversation = () => {
     logout();
   };
 
-  const outsideHandler = (e) => {
-    setShowEmojiPicker(!showEmojiPicker);
+  const mobileHandler = () => {
+    setRecipients();
   };
 
   const emojiBtnHandler = () => {
@@ -47,8 +49,18 @@ export const Conversation = () => {
   };
 
   return (
-    <div className="fixed bottom-0 top-0 right-0 w-[75%] font-regular">
+    <div
+      className={`${
+        recipients ? "fixed" : "hidden"
+      }    bottom-0 top-0 right-0 w-full bg-bgColor font-regular md:w-[65%] md:bg-none lg:w-[75%]`}
+    >
       <div className="flex h-16 w-full items-center justify-between bg-primary-dark py-3 px-5  text-white">
+        <button
+          onClick={mobileHandler}
+          className="flex h-full w-11 items-center justify-center rounded-xl bg-primary  md:hidden"
+        >
+          <BackIcon className="h-8 w-8 fill-white " />
+        </button>
         <h2 className="font-heading text-3xl capitalize">
           {recipients.username}
         </h2>
@@ -60,7 +72,7 @@ export const Conversation = () => {
         </button>
       </div>
 
-      <div className="flex h-screen max-h-full flex-col items-center  gap-4   px-4 pb-4">
+      <div className="flex h-screen max-h-full flex-col items-center  gap-4   pb-4">
         <div className=" h-4/5 w-full overflow-y-auto  ">
           <div className=" flex w-full flex-col gap-4 p-4">
             {messagesReceived.map((el, i) => {
@@ -101,7 +113,10 @@ export const Conversation = () => {
             <EmojiIcon className="h-5 w-5 fill-primary" />
           </button>
 
-          <form onSubmit={sendHandler} className="flex w-full justify-between">
+          <form
+            onSubmit={sendHandler}
+            className="flex w-full justify-between gap-2"
+          >
             <input
               type="text"
               onChange={(e) => setMessage(e.target.value)}

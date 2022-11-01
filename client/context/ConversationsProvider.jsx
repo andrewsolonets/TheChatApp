@@ -27,7 +27,7 @@ export function ConversationsProvider({ children, auth }) {
 
   const addMessageToConversation = (msg, self) => {
     if (messagesReceived) {
-      console.log(messagesReceived);
+      // console.log(messagesReceived);
       console.log("addMessageToConversation");
       const newMessage = { fromSelf: self, message: msg };
       const messagesNew = [...messagesReceived];
