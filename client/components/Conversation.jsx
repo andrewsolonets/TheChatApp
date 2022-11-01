@@ -1,15 +1,18 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LogoutIcon from "../assets/LogoutIcon";
 import SendIcon from "../assets/SendIcon";
 import { useAuth } from "../context/AuthContext";
 import { useConversations } from "../context/ConversationsProvider";
-import { useChatScroll } from "../hooks/useChatScroll";
+import EmojiPicker from "emoji-picker-react";
+import EmojiIcon from "../assets/EmojiIcon";
 
 export const Conversation = () => {
-  const messageRef = useRef();
+  const [message, setMessage] = useState("");
+
   const { logout } = useAuth();
 
   const { sendMessage, messagesReceived, recipients } = useConversations();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true });
@@ -19,12 +22,22 @@ export const Conversation = () => {
     logout();
   };
 
+  const emojiBtnHandler = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+  const emojiAddHandler = (emojiObject) => {
+    let msg = message;
+    msg = msg += emojiObject.emoji;
+    setMessage(msg);
+  };
+
   const sendHandler = (e) => {
     e.preventDefault();
-    const message = messageRef.current.value;
+
     console.log(message);
     sendMessage(message);
-    e.target.reset();
+    setMessage("");
   };
 
   return (
@@ -65,19 +78,30 @@ export const Conversation = () => {
             })}
           </div>
         </div>
-        <form
-          className=" relative flex w-full basis-11 justify-between px-4"
-          onSubmit={sendHandler}
-        >
-          <input
-            type="text"
-            ref={messageRef}
-            className="form-input h-11 w-[94%] rounded-xl border-0  bg-white focus:outline-0"
-          ></input>
-          <button className="  h-full  rounded-xl  bg-white  pl-3 pr-2 text-white">
-            <SendIcon className="h-7 w-7 fill-primary" />
+        <div className="relative flex w-full basis-11 justify-between gap-2 px-4">
+          <button
+            className="absolute h-full rounded-xl   bg-white  pl-3 pr-2 text-white"
+            onClick={emojiBtnHandler}
+          >
+            {showEmojiPicker && (
+              <div className="absolute bottom-12">
+                <EmojiPicker onEmojiClick={emojiAddHandler} />
+              </div>
+            )}
+            <EmojiIcon className="h-5 w-5 fill-primary" />
           </button>
-        </form>
+          <form onSubmit={sendHandler} className="flex w-full justify-between">
+            <input
+              type="text"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+              className="form-input h-11 w-[94%] rounded-xl border-0 bg-white pl-10 focus:outline-0"
+            ></input>
+            <button className="  h-full  rounded-xl  bg-white  pl-3 pr-2 text-white">
+              <SendIcon className="h-7 w-7 fill-primary" />
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
