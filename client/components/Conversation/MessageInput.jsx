@@ -35,6 +35,8 @@ export const MessageInput = () => {
       <button
         className="absolute h-full rounded-xl pl-3 pr-2 text-white"
         onClick={emojiBtnHandler}
+        onMouseEnter={emojiBtnHandler}
+        onMouseLeave={emojiBtnHandler}
       >
         <EmojiIcon className="h-5 w-5 fill-primary" />
       </button>

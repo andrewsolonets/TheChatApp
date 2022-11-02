@@ -2,6 +2,7 @@ import { useSocket } from "../context/SocketProvider";
 import Image from "next/image";
 import { useConversations } from "../context/ConversationsProvider";
 import { useState } from "react";
+import SearchIcon from "../assets/SearchIcon";
 
 export const Sidebar = () => {
   const { contacts } = useSocket();
@@ -41,13 +42,17 @@ export const Sidebar = () => {
           <div className="p-3 text-xl text-white">Private</div>
         </div> */}
       </div>
-      <div className="w-full bg-primary px-5 py-4 ">
-        <input
-          type="search"
-          onChange={searchHandler}
-          value={chats.query}
-          className=" w-full rounded-full border-none bg-primary-dark text-white placeholder-gray-300 drop-shadow-sm"
-        />
+      <div className="w-full  bg-primary px-5 py-4  ">
+        <div className="relative flex w-full items-center">
+          <input
+            type="search"
+            onChange={searchHandler}
+            value={chats.query}
+            placeholder="Search..."
+            className="w-full rounded-full border-none bg-primary-dark pl-12 text-white placeholder-gray-300 drop-shadow-sm"
+          />
+          <SearchIcon className="absolute left-4 z-10 h-5 w-5" />
+        </div>
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto py-5 px-2">
         {(chats.query ? chats.chats : contacts).map((contact, index) => {
