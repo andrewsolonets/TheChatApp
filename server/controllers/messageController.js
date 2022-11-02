@@ -4,16 +4,38 @@ module.exports.getMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
 
-    const messages = await Messages.find({
-      users: {
-        $all: [from, to],
+    const messages = await Messages.aggregate([
+      {
+        $match: {
+          users: {
+            $all: [from, to],
+          },
+        },
       },
-    }).sort({ updatedAt: 1 });
+      {
+        $project: {
+          _id: 0,
+          sender: 1,
+          message: 1,
+          sent: {
+            time: { $dateToString: { format: "%H:%M", date: "$updatedAt" } },
+            date: { $dateToString: { format: "%d/%m", date: "$updatedAt" } },
+          },
+        },
+      },
+    ]);
+
+    // const messages = await Messages.find({
+    //   users: {
+    //     $all: [from, to],
+    //   },
+    // }).sort({ updatedAt: 1 });
 
     const projectedMessages = messages.map((msg) => {
       return {
         fromSelf: msg.sender.toString() === from,
         message: msg.message.text,
+        sent: msg.sent,
       };
     });
     res.json(projectedMessages);

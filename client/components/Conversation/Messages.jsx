@@ -28,6 +28,14 @@ export const Messages = () => {
                 {el.fromSelf ? "You" : recipients.username}
               </h4>
               <p>{el.message}</p>
+              <div className="flex gap-2">
+                <span className="font-regular text-xs opacity-60">
+                  {el.sent.time}
+                </span>
+                <span className="font-regular text-xs opacity-60">
+                  {el.sent.date}
+                </span>
+              </div>
             </div>
           );
         })}
