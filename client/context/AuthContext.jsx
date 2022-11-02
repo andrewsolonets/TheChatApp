@@ -71,7 +71,7 @@ export const AuthProvider = (props) => {
     }
     if (data.status === true) {
       // REDO!
-      console.log(data);
+      // console.log(data);
       Cookies.set("jwt", data.token);
       router.push("/setAvatar");
       // set User
@@ -82,7 +82,7 @@ export const AuthProvider = (props) => {
     return await axios
       .get(`${logoutRoute}/${auth.user.data._id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         Cookies.remove("jwt");
         router.push("/");
         console.log("user logged out");

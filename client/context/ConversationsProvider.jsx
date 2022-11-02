@@ -21,7 +21,6 @@ export function ConversationsProvider({ children, auth }) {
       to: recipients?._id,
     });
     setMessages(data);
-    console.log(data);
   };
 
   const addMessageToConversation = (msg, self) => {

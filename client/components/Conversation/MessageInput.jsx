@@ -19,7 +19,6 @@ export const MessageInput = () => {
   const sendHandler = (e) => {
     e.preventDefault();
 
-    console.log(message);
     sendMessage(message);
     setMessage("");
   };

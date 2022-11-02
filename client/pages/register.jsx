@@ -24,7 +24,7 @@ export default function Register() {
     if (handleValidationRegister(values)) {
       const { email, username, password } = values;
       const res = register(username, email, password);
-      console.log(res);
+      // console.log(res);
       router.push("/setAvatar");
     }
   };

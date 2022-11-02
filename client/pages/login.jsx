@@ -19,16 +19,16 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateFormLogin(values)) {
-      console.log(values);
+      // console.log(values);
       const { username, password } = values;
       try {
         const data = await login(username, password);
-        console.log(data.status);
+        // console.log(data.status);
         if (!data.status) {
           toast.error(data.msg, toastOptions);
         }
         router.push("/");
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         toast.error(err.message, toastOptions);
       }
