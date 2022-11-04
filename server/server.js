@@ -9,7 +9,13 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
-app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.ORIGIN,
+    credentials: true,
+    exposedHeaders: "Set-Cookie",
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
