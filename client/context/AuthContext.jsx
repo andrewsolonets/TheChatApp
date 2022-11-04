@@ -8,6 +8,7 @@ import {
   registerRoute,
   setAvatarRoute,
 } from "../utils/APIRoutes";
+import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/helpers";
@@ -54,7 +55,7 @@ export const AuthProvider = (props) => {
       )
       .then((data) => {
         console.log(data);
-        // Cookies.set("jwt", data.data.token, { secure: true });
+        Cookies.set("jwt", data.data.token, { secure: true });
         router.push("/");
         return data.data;
         // router.replace("/");
@@ -80,7 +81,7 @@ export const AuthProvider = (props) => {
     if (data.status === true) {
       // REDO!
       // console.log(data);
-      // Cookies.set("jwt", data.token, { secure: true });
+      Cookies.set("jwt", data.token, { secure: true });
       router.push("/setAvatar");
       // set User
     }
@@ -91,6 +92,7 @@ export const AuthProvider = (props) => {
       .get(`${logoutRoute}/${auth.user.data._id}`, { withCredentials: true })
       .then((res) => {
         // console.log(res);
+        Cookies.remove("jwt");
 
         router.push("/");
         console.log("user logged out");
