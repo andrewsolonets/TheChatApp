@@ -29,6 +29,7 @@ module.exports.login = async (req, res, next) => {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: true,
+      sameSite: "none",
 
       // signed: true,
       expires: new Date(Date.now() + process.env.TOKEN_EXPIRES_IN * 1000),
@@ -60,6 +61,7 @@ module.exports.register = async (req, res, next) => {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: true,
+      sameSite: "none",
       expires: new Date(Date.now() + process.env.TOKEN_EXPIRES_IN * 1000), //convert 2h to ms; maxAge uses miliseconds
     });
 

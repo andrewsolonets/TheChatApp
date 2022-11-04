@@ -17,13 +17,15 @@ const AuthContext = createContext();
 export const getUser = async (ctx) => {
   // console.log(ctx);
   return await axios
-    .get(currentUserRoute, {
-      headers: ctx?.req?.headers?.cookie
-        ? { cookie: ctx.req.headers.cookie }
-        : undefined,
-      credentials: "include",
-      withCredentials: true,
-    })
+    .get(
+      currentUserRoute,
+      {
+        headers: ctx?.req?.headers?.cookie
+          ? { cookie: ctx.req.headers.cookie }
+          : undefined,
+      },
+      { withCredentials: true }
+    )
     .then((res) => {
       if (res.data) {
         return { status: "SIGNED_IN", user: res.data };

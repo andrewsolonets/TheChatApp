@@ -14,7 +14,7 @@ export const LoginForm = ({ handleChange, handleSubmit }) => {
 
       <div className="relative w-full">
         <input
-          id="email"
+          id="username"
           type="text"
           placeholder="Username"
           name="username"
@@ -22,10 +22,10 @@ export const LoginForm = ({ handleChange, handleSubmit }) => {
           className="peer form-input w-full rounded-lg border-none  bg-primary text-white placeholder-transparent outline-none focus:ring-0 "
         ></input>
         <label
-          htmlFor="email"
+          htmlFor="username"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
-          Email
+          Username
         </label>
       </div>
 
