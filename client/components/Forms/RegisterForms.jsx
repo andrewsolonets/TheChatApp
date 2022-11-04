@@ -22,7 +22,7 @@ export const RegisterForm = ({ handleChange, handleSubmit }) => {
           onChange={(e) => handleChange(e)}
         />
         <label
-          for="username"
+          htmlFor="username"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
           Username
@@ -56,7 +56,7 @@ export const RegisterForm = ({ handleChange, handleSubmit }) => {
           onChange={(e) => handleChange(e)}
         />
         <label
-          for="password"
+          htmlFor="password"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
           Password
@@ -73,7 +73,7 @@ export const RegisterForm = ({ handleChange, handleSubmit }) => {
           onChange={(e) => handleChange(e)}
         />
         <label
-          for="confirmPassword"
+          htmlFor="confirmPassword"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
           Confirm Password

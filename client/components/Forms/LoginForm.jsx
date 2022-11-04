@@ -22,7 +22,7 @@ export const LoginForm = ({ handleChange, handleSubmit }) => {
           className="peer form-input w-full rounded-lg border-none  bg-primary text-white placeholder-transparent outline-none focus:ring-0 "
         ></input>
         <label
-          for="email"
+          htmlFor="email"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
           Email
@@ -39,7 +39,7 @@ export const LoginForm = ({ handleChange, handleSubmit }) => {
           className="peer form-input w-full rounded-lg border-none  bg-primary text-white placeholder-transparent outline-none focus:ring-0 "
         ></input>
         <label
-          for="password"
+          htmlFor="password"
           className="absolute left-3 -top-5 text-sm text-gray-300 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-gray-300"
         >
           Password

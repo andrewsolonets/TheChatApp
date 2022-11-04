@@ -28,9 +28,10 @@ module.exports.login = async (req, res, next) => {
     const token = utils.getToken(username);
     res.cookie("jwt", token, {
       httpOnly: true,
+      secure: true,
 
       // signed: true,
-      maxAge: Number(process.env.TOKEN_EXPIRES_IN) * 1000, //convert 2h to ms; maxAge uses miliseconds
+      expires: new Date(Date.now() + process.env.TOKEN_EXPIRES_IN * 1000),
     });
 
     delete user.password;
@@ -58,7 +59,8 @@ module.exports.register = async (req, res, next) => {
     });
     res.cookie("jwt", token, {
       httpOnly: true,
-      maxAge: Number(process.env.TOKEN_EXPIRES_IN) * 1000, //convert 2h to ms; maxAge uses miliseconds
+      secure: true,
+      expires: new Date(Date.now() + process.env.TOKEN_EXPIRES_IN * 1000), //convert 2h to ms; maxAge uses miliseconds
     });
 
     delete user.password;
@@ -106,6 +108,7 @@ module.exports.setAvatar = async (req, res, next) => {
 module.exports.logOut = (req, res, next) => {
   try {
     if (!req.params.id) return res.json({ msg: "User id is required " });
+    res.clearCookie("jwt");
     onlineUsers.delete(req.params.id);
     return res.status(200).send();
   } catch (ex) {

@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import {
   currentUserRoute,
   loginRoute,
@@ -43,14 +42,17 @@ export const AuthProvider = (props) => {
   const auth = props.myAuth || { status: "SIGNED_OUT", user: null };
   const login = async (username, password) => {
     return await axios
-      .post(loginRoute, {
-        username,
-        password,
-        credentials: "include",
-        withCredentials: true,
-      })
+      .post(
+        loginRoute,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((data) => {
-        Cookies.set("jwt", data.data.token);
+        console.log(data);
+        // Cookies.set("jwt", data.data.token, { secure: true });
         router.push("/");
         return data.data;
         // router.replace("/");
@@ -61,18 +63,22 @@ export const AuthProvider = (props) => {
   };
 
   const register = async (username, email, password) => {
-    const { data } = await axios.post(registerRoute, {
-      username,
-      email,
-      password,
-    });
+    const { data } = await axios.post(
+      registerRoute,
+      {
+        username,
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
     if (data.status === false) {
       toast.error(data.msg, toastOptions);
     }
     if (data.status === true) {
       // REDO!
       // console.log(data);
-      Cookies.set("jwt", data.token);
+      // Cookies.set("jwt", data.token, { secure: true });
       router.push("/setAvatar");
       // set User
     }
@@ -80,10 +86,10 @@ export const AuthProvider = (props) => {
 
   const logout = async () => {
     return await axios
-      .get(`${logoutRoute}/${auth.user.data._id}`)
+      .get(`${logoutRoute}/${auth.user.data._id}`, { withCredentials: true })
       .then((res) => {
         // console.log(res);
-        Cookies.remove("jwt");
+
         router.push("/");
         console.log("user logged out");
       })
