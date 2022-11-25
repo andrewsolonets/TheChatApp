@@ -47,7 +47,7 @@
 
 ## [See the working demo](https://thechatapp.vercel.app/)
 
-Simple chat app that persists current user via cookies, saves message history in mongodb. I've built this app to learn more about the backend - specifically node.js, express and socket.io. I was amazed by the power of sockets, which led me to building this project. Server has an API that handles user authentication as well as message receiving, creating and storing functionality. MongoDb is used as a database.
+A simple chat app that persists current users via cookies, saves message history in MongoDB. I've built this app to learn more about the backend - specifically node.js, express, and socket.io. I was amazed by the power of sockets, which led me to building this project. Server has an API that handles user authentication as well as message receiving, creating and storing functionality. MongoDb is used as a database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
